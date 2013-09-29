@@ -1,7 +1,7 @@
 class BAA
   module Hooks
     def hook
-      puts "hello"
+      "hello"
     end
   end
 end
