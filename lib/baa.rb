@@ -6,7 +6,7 @@ class BAA
       names.each do |name|
         rename_method(name)
         define_method(name) do |*args, &block|
-          send(name)
+          yield
           send(old_name(name), args, &block)
         end
         @@_baa_hooks[:before] << name
@@ -19,7 +19,7 @@ class BAA
         rename_method(name)
         define_method(name) do |*args, &block|
           send(old_name(name), args, &block)
-          send(name)
+          yield
         end
         @@_baa_hooks[:after] << name
       end
@@ -31,8 +31,8 @@ class BAA
         rename_method(name)
         define_method(name) do |*args, &block|
           send(pre_method_name)
+          yield
           send(old_name(name), args, &block)
-          send(name)
         end
         @@_baa_hooks[:around] << name
       end
