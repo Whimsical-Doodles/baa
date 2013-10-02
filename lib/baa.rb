@@ -1,53 +1,62 @@
-class BAA
-  module Hooks
-    @@_baa_hooks = {before: [], after: [], around: []}
+module Hooks
+  @@_baa_hooks = {before: [], after: [], around: []}
 
-    def before(*names)
-      names.each do |name|
-        rename_method(name)
-        define_method(name) do |*args, &block|
-          yield
-          send(old_name(name), args, &block)
+  def before(*names)
+    names.each do |name|
+      self._baa_rename_method(name)
+      define_method(name) do |*args, &block|
+        yield
+        if args.any?
+          send(self.class._baa_old_name(name), args, &block)
+        else
+          send(self.class._baa_old_name(name), &block)
         end
-        @@_baa_hooks[:before] << name
       end
-      @@_baa_hooks
+      @@_baa_hooks[:before] << name
     end
-
-    def after(*names)
-      names.each do |name|
-        rename_method(name)
-        define_method(name) do |*args, &block|
-          send(old_name(name), args, &block)
-          yield
-        end
-        @@_baa_hooks[:after] << name
-      end
-      @@_baa_hooks
-    end
-
-    def around(*names, pre_method_name)
-      names.each do |name|
-        rename_method(name)
-        define_method(name) do |*args, &block|
-          send(pre_method_name)
-          yield
-          send(old_name(name), args, &block)
-        end
-        @@_baa_hooks[:around] << name
-      end
-      @@_baa_hooks
-    end
-
-    private
-
-    def rename_method(name)
-      alias_method name, old_name(name)
-    end
-
-    def old_name(name)
-      "_baa_#{name}"
-    end
+    @@_baa_hooks
   end
-end
 
+  def after(*names)
+    names.each do |name|
+      self._baa_rename_method(name)
+      define_method(name) do |*args, &block|
+        if args.any?
+          send(self.class._baa_old_name(name), args, &block)
+        else
+          send(self.class._baa_old_name(name), &block)
+        end
+        yield
+      end
+      @@_baa_hooks[:after] << name
+    end
+    @@_baa_hooks
+  end
+
+  def around(*names, pre_method_name)
+    names.each do |name|
+      self._baa_rename_method(name)
+      define_method(name) do |*args, &block|
+        self.send(pre_method_name)
+        if args.any?
+          send(self.class._baa_old_name(name), args, &block)
+        else
+          send(self.class._baa_old_name(name), &block)
+        end
+        yield
+      end
+      @@_baa_hooks[:around] << name
+    end
+    @@_baa_hooks
+  end
+
+  def _baa_rename_method(name)
+    raise "Method (:#{name}) already has hooks applied\n#{@@_baa_hooks}" if @@_baa_hooks.values.flatten.include? name
+    alias_method self._baa_old_name(name), name
+  end
+
+  def _baa_old_name(name)
+    "_baa_#{name}".to_sym
+  end
+
+end
