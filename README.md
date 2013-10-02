@@ -56,3 +56,17 @@ Foo.new.baz
 Foo.new.blat
 
 ```
+
+outputs
+
+```bash
+  Method (:baz) already has hooks applied
+  {:before=>[:bar], :after=>[:blat], :around=>[:baz]}
+  before bar
+  bar
+  before baz
+  baz
+  after baz
+  blat
+  after blat
+```
