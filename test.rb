@@ -31,6 +31,14 @@ class Foo
   after :blat do
     puts 'after blat'
   end
+
+  begin
+    before :baz do
+      puts "this should error"
+    end
+  rescue Exception => e
+    puts e.message
+  end
 end
 
 Foo.new.bar
