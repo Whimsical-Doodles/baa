@@ -1,6 +1,5 @@
-$: << 'lib'
 require 'baa'
-require 'pry'
+
 class Foo
   extend Hooks
 
