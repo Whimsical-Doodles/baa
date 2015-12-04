@@ -1,10 +1,12 @@
 # Hooks
 module Hooks
-  @@_baa_hooks = {
-    before: [],
-    after: [],
-    around: []
-  }
+  def _baa_hooks
+    @_baa_hooks ||= {
+      before: [],
+      after: [],
+      around: []
+    }
+  end
 
   def before(*names)
     names.each do |name|
@@ -17,9 +19,9 @@ module Hooks
           send(self.class._baa_old_name(name), &block)
         end
       end
-      @@_baa_hooks[:before] << name
+      _baa_hooks[:before] << name
     end
-    @@_baa_hooks
+    _baa_hooks
   end
 
   def after(*names)
@@ -33,9 +35,9 @@ module Hooks
         end
         yield
       end
-      @@_baa_hooks[:after] << name
+      _baa_hooks[:after] << name
     end
-    @@_baa_hooks
+    _baa_hooks
   end
 
   def around(*names, pre_method_name)
@@ -50,14 +52,14 @@ module Hooks
         end
         yield
       end
-      @@_baa_hooks[:around] << name
+      _baa_hooks[:around] << name
     end
-    @@_baa_hooks
+    _baa_hooks
   end
 
   def _baa_rename_method(name)
-    if @@_baa_hooks.values.flatten.include? name
-      fail "Method (:#{name}) already has hooks applied\n#{@@_baa_hooks}"
+    if _baa_hooks.values.flatten.include? name
+      fail "Method (:#{name}) already has hooks applied\n#{_baa_hooks}"
     end
     alias_method _baa_old_name(name), name
   end

@@ -1,5 +1,5 @@
 MethodLength:
   Max: 20
 
-Style/ClassVars:
+AbcSize:
   Enabled: false
