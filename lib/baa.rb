@@ -65,5 +65,4 @@ module Hooks
   def _baa_old_name(name)
     "_baa_#{name}".to_sym
   end
-
 end
