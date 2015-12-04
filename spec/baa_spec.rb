@@ -35,7 +35,7 @@ class Foo
     before :baz do
       puts 'this should error'
     end
-  rescue Exception => e
+  rescue StandardError => e
     puts e.message
   end
 end
