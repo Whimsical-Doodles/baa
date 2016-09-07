@@ -6,5 +6,5 @@ node {
   def img = docker.build('builder', '.')
 
   stage 'Test'
-  img.run
+  img.run()
 }
