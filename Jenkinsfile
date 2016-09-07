@@ -6,5 +6,5 @@ node {
   def img = docker.build('ruby', '.')
 
   stage 'Test'
-  img.run('rake')
+  img.run('ruby','rake')
 }
