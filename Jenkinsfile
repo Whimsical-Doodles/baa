@@ -1,7 +1,7 @@
 node {
   stage 'Docker'
-  def img = docker.build('ruby:latest', '.')
+  def img = docker.build('ruby-runner', '.')
 
   stage 'Test'
-  img.run('cd /app/ && rake')
+  img.run('rake')
 }
