@@ -13,4 +13,4 @@ COPY . $APP_PATH
 
 RUN bundle install
 
-CMD ["sh"]
+CMD ["rake"]
