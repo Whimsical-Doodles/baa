@@ -1,3 +1,3 @@
-source 'https://artifactory.nap/artifactory/api/gems/gems'
+source 'http://artifactory.yoox.net/artifactory/api/gems/gems'
 gem 'rspec'
 gem 'rake'

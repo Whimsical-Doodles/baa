@@ -9,6 +9,7 @@ ENV APP_PATH /app/
 RUN mkdir $APP_PATH
 WORKDIR $APP_PATH
 
+COPY .gemrc ~
 COPY . $APP_PATH
 
 RUN bundle install
