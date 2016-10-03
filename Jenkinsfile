@@ -1,8 +1,10 @@
 node {
   checkout scm
 
+  def img
+
   stage('Docker') {
-    def img = docker.build('builder', '.')
+    img = docker.build('builder', '.')
   }
 
   stage('Test') {
