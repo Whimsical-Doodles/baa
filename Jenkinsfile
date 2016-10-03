@@ -1,11 +1,15 @@
 node {
   checkout scm
 
-  stage 'Docker'
-  def img = docker.build('builder', '.')
+    def img
 
-  stage 'Test'
-  img.inside {
-    sh('rake')
+    stage 'Docker' {
+      img = dockers.build('builder', '.')
+    }
+
+  stage 'Test' {
+    img.inside {
+      sh('rake')
+    }
   }
 }
