@@ -3,7 +3,7 @@ node {
 
   stage 'Docker'
 
-    def img = dockers.build('builder', '.')
+    def img = docker.build('builder', '.')
 
   stage 'Test'
 
