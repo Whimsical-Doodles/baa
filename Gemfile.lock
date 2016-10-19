@@ -1,5 +1,5 @@
 GEM
-  remote: http://artifactory.yoox.net/artifactory/api/gems/gems/
+  remote: https://rubygems.org/
   specs:
     diff-lcs (1.2.5)
     rake (11.3.0)
