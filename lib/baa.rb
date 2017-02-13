@@ -57,9 +57,12 @@ module Hooks
     _baa_hooks
   end
 
+  class ::HookExistsError < RuntimeError
+  end
+
   def _baa_rename_method(name)
     if _baa_hooks.values.flatten.include? name
-      fail "Method (:#{name}) already has hooks applied\n#{_baa_hooks}"
+      fail HookExistsError, "Method (:#{name}) already has hooks applied\n#{_baa_hooks}"
     end
     alias_method _baa_old_name(name), name
   end
