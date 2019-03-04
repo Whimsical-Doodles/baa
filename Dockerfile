@@ -4,6 +4,7 @@ RUN apk update && \
       apk upgrade && \
       apk add ruby ruby-io-console ruby-bundler && \
       rm -rf /var/cache/apk/*
+RUN gem install --no-document bundler
 
 ENV APP_PATH /app/
 RUN mkdir $APP_PATH
