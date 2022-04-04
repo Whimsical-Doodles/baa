@@ -8,5 +8,5 @@ Gem::Specification.new do |s|
   s.email = 'baa@whimsicaldoodles.com'
   s.files = ['lib/baa.rb']
   s.homepage = 'https://github.com/Whimsical-Doodles/baa'
-  s.license = 'GPLv2'
+  s.license = 'GPL-3.0+'
 end
