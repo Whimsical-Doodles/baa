@@ -1,4 +1,6 @@
-# Hooks
+# frozen_string_literal: true
+
+# Hooks module for before, after and around hooks
 module Hooks
   def _baa_hooks
     @_baa_hooks ||= {
@@ -62,8 +64,9 @@ module Hooks
 
   def _baa_rename_method(name)
     if _baa_hooks.values.flatten.include? name
-      fail HookExistsError, "Method (:#{name}) already has hooks applied\n#{_baa_hooks}"
+      raise HookExistsError, "Method (:#{name}) already has hooks applied\n#{_baa_hooks}"
     end
+
     alias_method _baa_old_name(name), name
   end
 

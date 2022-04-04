@@ -9,10 +9,7 @@ RUN gem install --no-document bundler
 ENV APP_PATH /app/
 RUN mkdir $APP_PATH
 WORKDIR $APP_PATH
-
-COPY .gemrc ~
-COPY . $APP_PATH
-
+COPY Gemfile* $APP_PATH
 RUN bundle install
-
-CMD ["rake"]
+COPY . $APP_PATH
+CMD "rake"

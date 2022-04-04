@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'baa'
 
 class Foo
@@ -75,6 +77,6 @@ end
 
 describe FooWithError do
   it 'raises an error on second hook definition' do
-    expect {described_class.add_hook}.to raise_error(HookExistsError)
+    expect { described_class.add_hook }.to raise_error(HookExistsError)
   end
 end

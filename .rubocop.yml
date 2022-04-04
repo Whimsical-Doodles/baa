@@ -1,5 +1,5 @@
-MethodLength:
+Metrics/MethodLength:
   Max: 20
 
-AbcSize:
-  Enabled: false
+AllCops: 
+  NewCops: enable
